@@ -156,6 +156,7 @@
    "Show entry" 'helm-org-rifle--show-candidates
    "Show entry in indirect buffer" 'helm-org-rifle-show-entry-in-indirect-buffer
    "Show entry in real buffer" 'helm-org-rifle-show-entry-in-real-buffer
+   "Show entry in indirect buffer (new frame)" 'helm-org-rifle-show-entry-in-indirect-buffer-new-frame
    "Clock in" 'helm-org-rifle--clock-in))
 
 (defgroup helm-org-rifle nil
@@ -715,6 +716,11 @@ source, so we must gather them manually."
         ;; so it won't be selected when the indirect buffer is killed.
         (set-window-prev-buffers nil (append (cdr (window-prev-buffers))
                                              (car (window-prev-buffers))))))))
+
+(defun helm-org-rifle-show-entry-in-indirect-buffer-new-frame (candidate)
+  "Show CANDIDATE in an indirect buffer in a new frame."
+  (let ((org-indirect-buffer-display 'new-frame))
+    (helm-org-rifle-show-entry-in-indirect-buffer candidate)))
 
 (defun helm-org-rifle-show-entry-in-indirect-buffer-map-action ()
   "Exit Helm buffer and call `helm-org-rifle-show-entry-in-indirect-buffer' with selected candidate."
