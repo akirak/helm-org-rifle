@@ -151,6 +151,14 @@
     new-map)
   "Keymap for `helm-org-rifle'.")
 
+(defvar helm-org-rifle-actions
+  (helm-make-actions
+   "Show entry" 'helm-org-rifle--show-candidates
+   "Show entry in indirect buffer" 'helm-org-rifle-show-entry-in-indirect-buffer
+   "Show entry in real buffer" 'helm-org-rifle-show-entry-in-real-buffer
+   "Clock in" 'helm-org-rifle--clock-in
+   "Refile" 'helm-org-rifle--refile))
+
 (defgroup helm-org-rifle nil
   "Settings for `helm-org-rifle'."
   :group 'helm
@@ -595,12 +603,7 @@ Files are opened if necessary, and the resulting buffers are left open."
                   :match 'identity
                   :multiline helm-org-rifle-multiline
                   :volatile t
-                  :action (helm-make-actions
-                           "Show entry" 'helm-org-rifle--show-candidates
-                           "Show entry in indirect buffer" 'helm-org-rifle-show-entry-in-indirect-buffer
-                           "Show entry in real buffer" 'helm-org-rifle-show-entry-in-real-buffer
-			   "Clock in" 'helm-org-rifle--clock-in
-                           "Refile" #'helm-org-rifle--refile)
+                  :action 'helm-org-rifle-actions
                   :keymap helm-org-rifle-map)))
     (helm-attrset 'buffer buffer source)
     source))
